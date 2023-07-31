@@ -1,0 +1,21 @@
+.grid-container {
+    margin: auto;
+}
+
+.grid {
+    white-space: pre;
+}
+
+tr{
+    line-height: 0;
+}
+
+a:link {
+    text-decoration: none;
+}
+
+#algo-description {
+    text-align: center;
+    font-size: large;
+    color: #000066;
+}
