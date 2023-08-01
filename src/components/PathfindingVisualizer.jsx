@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import Node from "./Node/Node";
 import { Dijkstra } from "../algorithms/dijkstra";
+import { DFS } from "../algorithms/dfs";
+import { BFS } from "../algorithms/bfs";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import { AiFillGithub, AiFillLinkedin, AiOutlineMail } from "react-icons/ai";
@@ -244,7 +246,7 @@ export default class PathfindingVisualizer extends Component {
     if (this.state.isRunnig) {
       return;
     }
-    if (algorithm !== "Dijkstra") {
+    if (algorithm === "A*") {
       alert("Will be implmented soon...");
       return;
     }
@@ -260,6 +262,10 @@ export default class PathfindingVisualizer extends Component {
 
     if (algorithm === "Dijkstra") {
       visitedNodesInOrder = Dijkstra(grid, startNode, endNode);
+    } else if (algorithm === "DFS") {
+      visitedNodesInOrder = DFS(grid, startNode, endNode);
+    } else if (algorithm === "BFS") {
+      visitedNodesInOrder = BFS(grid, startNode, endNode);
     }
 
     const nodesInShortestPathOrder = getNodesInShortestPathOrder(endNode);
@@ -321,6 +327,17 @@ export default class PathfindingVisualizer extends Component {
       );
       des =
         "is a graph search algorithm that finds the shortest path in a weighted graph.";
+    } else if (event.target.value === "A*") {
+      link = (
+        <a
+          href="https://en.wikipedia.org/wiki/A*_search_algorithm"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          A* search algorithm
+        </a>
+      );
+      des = "optimizes by searching for shorter paths first.";
     } else if (event.target.value === "DFS") {
       link = (
         <a
@@ -331,7 +348,7 @@ export default class PathfindingVisualizer extends Component {
           Depth-first search (DFS)
         </a>
       );
-      des = "expores a graph by level to find the shortest path.";
+      des = "expores a graph as far as possible before backtracking.";
     } else if (event.target.value === "BFS") {
       link = (
         <a
@@ -343,7 +360,7 @@ export default class PathfindingVisualizer extends Component {
         </a>
       );
       des =
-        "expores a graph as far as possible before backtracking to find the shortest path.";
+        "expores a graph by level to find the shortest path.";
     }
     this.setState({
       description: des,
@@ -368,6 +385,7 @@ export default class PathfindingVisualizer extends Component {
             >
               {/* <option>Open this select menu</option> */}
               <option value="Dijkstra">Dijkstra</option>
+              <option value="A*">A*</option>
               <option value="DFS">DFS</option>
               <option value="BFS">BFS</option>
             </Form.Select>
