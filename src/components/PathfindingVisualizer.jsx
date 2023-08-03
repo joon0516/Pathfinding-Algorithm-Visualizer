@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import Node from "./Node/Node";
 import { Dijkstra } from "../algorithms/dijkstra";
+import { A_Star } from "../algorithms/a*";
 import { DFS } from "../algorithms/dfs";
 import { BFS } from "../algorithms/bfs";
 import Button from "react-bootstrap/Button";
@@ -246,7 +247,7 @@ export default class PathfindingVisualizer extends Component {
     if (this.state.isRunnig) {
       return;
     }
-    if (algorithm === "A*") {
+    if (false) {
       alert("Will be implmented soon...");
       return;
     }
@@ -262,6 +263,8 @@ export default class PathfindingVisualizer extends Component {
 
     if (algorithm === "Dijkstra") {
       visitedNodesInOrder = Dijkstra(grid, startNode, endNode);
+    } else if (algorithm === "A*") {
+      visitedNodesInOrder = A_Star(grid, startNode, endNode);
     } else if (algorithm === "DFS") {
       visitedNodesInOrder = DFS(grid, startNode, endNode);
     } else if (algorithm === "BFS") {
