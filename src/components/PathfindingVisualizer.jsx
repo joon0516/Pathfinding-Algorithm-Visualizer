@@ -2,8 +2,9 @@ import React, { Component } from "react";
 import Node from "./Node/Node";
 import { Dijkstra } from "../algorithms/dijkstra";
 import { A_Star } from "../algorithms/a*";
-import { DFS } from "../algorithms/dfs";
+import { GreedyBFS } from "../algorithms/greedyBFS";
 import { BFS } from "../algorithms/bfs";
+import { DFS } from "../algorithms/dfs";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import { AiFillGithub, AiFillLinkedin, AiOutlineMail } from "react-icons/ai";
@@ -265,10 +266,12 @@ export default class PathfindingVisualizer extends Component {
       visitedNodesInOrder = Dijkstra(grid, startNode, endNode);
     } else if (algorithm === "A*") {
       visitedNodesInOrder = A_Star(grid, startNode, endNode);
-    } else if (algorithm === "DFS") {
-      visitedNodesInOrder = DFS(grid, startNode, endNode);
+    } else if (algorithm === "GreedyBFS") {
+      visitedNodesInOrder = GreedyBFS(grid, startNode, endNode);
     } else if (algorithm === "BFS") {
       visitedNodesInOrder = BFS(grid, startNode, endNode);
+    } else if (algorithm === "DFS") {
+      visitedNodesInOrder = DFS(grid, startNode, endNode);
     }
 
     const nodesInShortestPathOrder = getNodesInShortestPathOrder(endNode);
@@ -341,6 +344,28 @@ export default class PathfindingVisualizer extends Component {
         </a>
       );
       des = "optimizes by searching for shorter paths first.";
+    } else if (event.target.value === "GreedyBFS") {
+      link = (
+        <a
+          href="https://en.wikipedia.org/wiki/Best-first_search#Greedy_BFS"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          Greedy best-first search
+        </a>
+      );
+      des = "finds the most promising path regardless of whether they are the shortest.";
+    } else if (event.target.value === "BFS") {
+      link = (
+        <a
+          href="https://en.wikipedia.org/wiki/Breadth-first_search"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          Breadth-first search (BFS)
+        </a>
+      );
+      des = "expores a graph by level to find the shortest path.";
     } else if (event.target.value === "DFS") {
       link = (
         <a
@@ -352,18 +377,6 @@ export default class PathfindingVisualizer extends Component {
         </a>
       );
       des = "expores a graph as far as possible before backtracking.";
-    } else if (event.target.value === "BFS") {
-      link = (
-        <a
-          href="https://en.wikipedia.org/wiki/Breadth-first_search"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Breadth-first search (BFS)
-        </a>
-      );
-      des =
-        "expores a graph by level to find the shortest path.";
     }
     this.setState({
       description: des,
@@ -389,8 +402,9 @@ export default class PathfindingVisualizer extends Component {
               {/* <option>Open this select menu</option> */}
               <option value="Dijkstra">Dijkstra</option>
               <option value="A*">A*</option>
-              <option value="DFS">DFS</option>
+              <option value="GreedyBFS">Greedy BFS</option>
               <option value="BFS">BFS</option>
+              <option value="DFS">DFS</option>
             </Form.Select>
           </div>
           <Button
@@ -451,7 +465,10 @@ export default class PathfindingVisualizer extends Component {
               <a className="mx-1" href="https://github.com/joon0516">
                 <AiFillGithub style={{ fontSize: "27", color: "#1c1c1e" }} />
               </a>
-              <a className="mx-1" href="https://www.linkedin.com/in/joonhyuk-ko">
+              <a
+                className="mx-1"
+                href="https://www.linkedin.com/in/joonhyuk-ko"
+              >
                 <AiFillLinkedin style={{ fontSize: "27", color: "#1c1c1e" }} />
               </a>
               <a className="mx-1" href="mailto:tah3af@virginia.edu">
